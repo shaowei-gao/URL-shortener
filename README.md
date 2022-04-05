@@ -3,10 +3,13 @@
 ## Tools
 
 - Programming language: Go
-- RDBMS: Sqlite
+- RDBMS: PostgreSQL
 - Cache: Redis
-- ORM lib: gorm
-- Redis lib: go-redis
+- libs
+  - Framework: gin
+  - ORM: gorm
+  - Redis: go-redis
+  - Log: logrus
 
 ## Process
 
