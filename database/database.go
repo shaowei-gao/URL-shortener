@@ -3,10 +3,11 @@ package database
 import (
 	"context"
 	"errors"
+	"fmt"
 	"time"
 	"url-shortener/model"
 
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -24,9 +25,22 @@ type Databaseer interface {
 	Migrate(dst ...interface{}) error
 }
 
-func NewSqlite(path string) Databaseer {
-	file := path + "/sqlite.db"
-	orm, err := gorm.Open(sqlite.Open(file))
+var (
+	host     = "localhost"
+	user     = "server"
+	password = "password"
+	dbName   = "main"
+	port     = "5432"
+	sslMode  = "disable"
+	timeZone = "Asia/Taipei"
+)
+
+func NewPostgres() Databaseer {
+	dsn := fmt.Sprintf(
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=%s",
+		host, user, password, dbName, port, sslMode, timeZone,
+	)
+	orm, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
@@ -34,7 +48,6 @@ func NewSqlite(path string) Databaseer {
 		orm: orm,
 	}
 }
-
 func (db *DB) GetURL(ctx context.Context, shortenURL string) (string, error) {
 	var urls model.URLs
 	result := db.orm.Where("shorten_url = ?", shortenURL).Find(&urls)

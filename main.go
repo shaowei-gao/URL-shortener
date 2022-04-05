@@ -17,8 +17,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var (
-	_dbPath  = "./database"
+const (
 	_srvAddr = ":80"
 )
 
@@ -26,7 +25,9 @@ func main() {
 	ctx := context.Background()
 	logger := log.NewLogrus(ctx)
 	cache := cache.NewCache(logger)
-	db := database.NewSqlite(_dbPath)
+	// db := database.NewSqlite(_dbPath)
+	db := database.NewPostgres()
+
 	db.Migrate(&model.URLs{})
 	srv := service.NewService(db, cache, logger)
 	ser := gin.Default()

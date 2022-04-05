@@ -20,7 +20,7 @@ type Result struct {
 
 var (
 	ctx    = context.Background()
-	db     = database.NewSqlite("../database")
+	db     = database.NewPostgres()
 	logger = log.NewLogrus(ctx)
 	c      = cache.NewCache(logger)
 	srv    = NewService(db, c, logger)

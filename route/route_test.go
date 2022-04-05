@@ -19,7 +19,7 @@ import (
 )
 
 var (
-	db     = database.NewSqlite("../database")
+	db     = database.NewPostgres()
 	ctx    = context.Background()
 	logger = log.NewLogrus(ctx)
 	c      = cache.NewCache(logger)
