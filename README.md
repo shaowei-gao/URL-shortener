@@ -21,21 +21,21 @@
 - Use base64 to encrypt the UUID to be a shortened URL
 - Store the shortened URL into the cache and database
 
-2. Get original URL
+2. Get the original URL
 
 - Check request is combine the required
 - Query from the cache
-   - If data existed
-     - redirect the original URL
+  - If data existed
+    - Redirect the original URL
 - Query from the database
-   - If data existed
-     - check the "expireAt" field to make sure that is not expired
-       - If expired
-         - Return Not Found of status code
-       - Else
-         - redirect the original URL
-   - Else
-     - Return Not Found of status code
+  - If data existed
+    - Check the "expireAt" field to make sure that is not expired
+      - If expired
+        - Return Not Found of status code
+      - Else
+        - Redirect the original URL
+  - Else
+    - Return Not Found of status code
 
 ## TODO
 
